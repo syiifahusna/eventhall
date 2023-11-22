@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import java.time.LocalDate;
 
 @Entity
 @Table
@@ -13,30 +12,26 @@ import java.time.LocalDate;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class User{
+public class Guest {
 
     @Id
     @SequenceGenerator(
-            name = "user_seq",
-            sequenceName = "user_seq",
+            name = "guest_seq",
+            sequenceName = "guest_seq",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "user_seq"
+            generator = "guest_seq"
     )
     private Long id;
     private String name;
-    private String username;
-    private String password;
     private String email;
-    private LocalDate birthDate;
+    private String gender;
 
-    public User(String name, String username, String password, String email, LocalDate birthDate) {
+    public Guest(String name, String email, String gender) {
         this.name = name;
-        this.username = username;
-        this.password = password;
         this.email = email;
-        this.birthDate = birthDate;
+        this.gender = gender;
     }
 }
