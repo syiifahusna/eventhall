@@ -42,5 +42,10 @@ public class PublicController {
         return publicDir+"/login";
     }
 
+    @GetMapping("/logout")
+    public String logout(){
+        return publicDir+"/logout";
+    }
+
 
 }
