@@ -5,7 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
 
 @Entity
 @Table
@@ -13,7 +20,7 @@ import java.time.LocalDate;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class User{
+public class User  implements UserDetails{
 
     @Id
     @SequenceGenerator(
@@ -30,13 +37,40 @@ public class User{
     private String username;
     private String password;
     private String email;
+    private String tel;
     private LocalDate birthDate;
+    private boolean isAccountNonExpired;
+    private boolean isAccountNonLocked;
+    private boolean isCredentialsNonExpired;
+    private boolean isEnabled;
+    //private Set<SimpleGrantedAuthority> authorities;
 
-    public User(String name, String username, String password, String email, LocalDate birthDate) {
+
+    public User(String name, String username, String password, String email, String tel, LocalDate birthDate, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.tel = tel;
+        this.birthDate = birthDate;
+        this.isAccountNonExpired = isAccountNonExpired;
+        this.isAccountNonLocked = isAccountNonLocked;
+        this.isCredentialsNonExpired = isCredentialsNonExpired;
+        this.isEnabled = isEnabled;
+    }
+
+    public User(String name, String username, String password, String email, String tel, LocalDate birthDate) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.tel = tel;
         this.birthDate = birthDate;
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority("USER"));
+    }
+
 }

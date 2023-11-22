@@ -118,6 +118,16 @@ a:focus {
           box-shadow: none;
 }
 
+.btn-blank{
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    display: inline; /* Make the button behave like an inline element */
+}
+
 .navbar-brand {
   margin: 15px 0;
   padding: 0;
@@ -609,6 +619,12 @@ a:focus {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
+}
+
+form{
+    padding: 0;
+    margin: 0;
+    border: none;
 }
 
 .contact_section form {

@@ -1,5 +1,5 @@
 <!DOCTYPE>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -52,16 +52,16 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/u/news">
-
                                 News
                             </a>
                         </li>
                     </ul>
                     <div class="user_option">
-                        <a href="/logout">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                            <span>Logout</span>
-                        </a>
+                            <form method="post" th:action="@{/logout}">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <input type="submit" name="logout" value="Logout" class="btn-blank">
+                            </form>
+
                     </div>
                 </div>
             </nav>

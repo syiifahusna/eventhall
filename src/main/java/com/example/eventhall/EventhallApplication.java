@@ -10,10 +10,9 @@ import java.util.Arrays;
 public class EventhallApplication {
 
 	public static void main(String[] args) {
-		//SpringApplication.run(EventhallApplication.class, args);
 		ConfigurableApplicationContext app =
 				SpringApplication.run(EventhallApplication.class, args);
-		Arrays.stream(app.getBeanDefinitionNames()).forEach(System.out::println);
+		//Arrays.stream(app.getBeanDefinitionNames()).forEach(System.out::println);
 	}
 
 
