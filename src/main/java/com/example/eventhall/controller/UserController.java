@@ -21,4 +21,20 @@ public class UserController {
     public String hall(){
         return userDir+"/hall";
     }
+
+    @GetMapping("/about")
+    public String about(){
+        return userDir+"/about";
+    }
+
+    @GetMapping("/location")
+    public String location(){
+        return userDir+"/location";
+    }
+
+    @GetMapping("/news")
+    public String news(){
+        return userDir+"/news";
+    }
+
 }
