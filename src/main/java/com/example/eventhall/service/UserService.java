@@ -43,6 +43,15 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
+    public Boolean insertUser(User user){
+        Optional<User> optinalUser = userRepository.findUserByUsername(user.getUsername());
+        if(optinalUser.isPresent()){
+            return false;
+        }
+        userRepository.save(user);
+        return true;
+    }
+
     public Boolean isEmailExist(String email){
         Optional<User> optinalUser= userRepository.findUserByEmail(email);
 
@@ -53,13 +62,5 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public Boolean insertUser(User user){
-        Optional<User> optinalUser = userRepository.findUserByUsername(user.getUsername());
-        if(optinalUser.isPresent()){
-            return false;
-        }
-        userRepository.save(user);
-        return true;
-    }
 
 }

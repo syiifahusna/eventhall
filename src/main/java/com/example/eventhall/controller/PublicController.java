@@ -85,5 +85,10 @@ public class PublicController {
         return publicDir+"/logout";
     }
 
+    @GetMapping("/forgotpassword")
+    public String forgotpassword(){
+        return publicDir+"/forgotpassword";
+    }
+
 
 }

@@ -423,6 +423,20 @@ a:focus {
   color: #f16179;
 }
 
+.alerts{
+    padding-left: 45px;
+    padding-right: 45px;
+    margin: 50px;
+}
+
+.alerts .box{
+    padding-top: 45px;
+    background-color: #7fd7eb;
+    color: #ffffff;
+    border-radius: 15px;
+    width: 65%;
+}
+
 .saving_section {
   padding-left: 45px;
   padding-right: 45px;
@@ -867,6 +881,14 @@ form{
 .footer_section a {
   color: #cbc9c9;
 }
+
+input#rememberMe{
+    height: 20px;
+    width: 10%;
+    background-color: red;
+
+}
+
 
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */

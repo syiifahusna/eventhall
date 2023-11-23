@@ -15,8 +15,13 @@ public class SecurityConfig{
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+    @Bean(name = "emailPattern")
     public Pattern emailPattern() {
         return Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
+    }
+
+    @Bean(name = "telNoPattern")
+    public Pattern telNoPattern(){
+        return Pattern.compile("^\\+\\d{12}$|^\\+\\d{11}$");
     }
 }

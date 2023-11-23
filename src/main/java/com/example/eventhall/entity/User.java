@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
@@ -20,7 +21,7 @@ import java.util.Set;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class User  implements UserDetails{
+public class User implements UserDetails{
 
     @Id
     @SequenceGenerator(
@@ -44,6 +45,9 @@ public class User  implements UserDetails{
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
     //private Set<SimpleGrantedAuthority> authorities;
+
+    @Transient
+    private int age;
 
 
     public User(String name, String username, String password, String email, String tel, LocalDate birthDate, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
@@ -73,4 +77,8 @@ public class User  implements UserDetails{
         return Collections.singletonList(new SimpleGrantedAuthority("USER"));
     }
 
+    public int getAge() {
+        age = (int) ChronoUnit.YEARS.between(birthDate, LocalDate.now());
+        return age;
+    }
 }

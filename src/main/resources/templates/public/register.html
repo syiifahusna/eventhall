@@ -81,9 +81,22 @@
                 </h2>
             </div>
         </div>
-        <div th:if="${message}">
-            <h3 th:text="${message}"></h3>
-        </div>
+        <section th:if="${message}" class="alerts alerts d-flex justify-content-center">
+            <div class="box">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="detail-box">
+                                <div class="heading_container">
+                                    <h4 th:text="${message}"></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <div class="container container-bg">
             <div class="row">
                 <div class="col-md-6 col-lg-5 px-0">
@@ -101,7 +114,7 @@
                             Name : <input type="text" name="name" placeholder="Name" required>
                         </div>
                         <div>
-                            Tel No : <input type="text" name="tel" placeholder="Tel No" required>
+                            Tel No : <input type="text" name="tel" placeholder="Tel No" value="+60" required>
                         </div>
                         <div>
                             Birthday : <input type="date" name="birthdate" required>

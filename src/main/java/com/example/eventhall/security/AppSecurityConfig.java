@@ -38,14 +38,17 @@ public class AppSecurityConfig{
                                         "/news",
                                         "/register",
                                         "/login",
-                                        "/logoutsuccess"
+                                        "/logoutsuccess",
+                                        "/forgotpassword"
                                 ).anonymous()
                 .requestMatchers("/u/*").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                     .loginPage("/login")
+                    .failureUrl("/login?error=true")
                     .defaultSuccessUrl("/u/home")
+                    .and().rememberMe()
                 .and()
                 .logout()
                     .logoutUrl("/logout")

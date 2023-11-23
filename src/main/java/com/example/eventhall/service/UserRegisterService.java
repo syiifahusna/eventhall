@@ -2,6 +2,7 @@ package com.example.eventhall.service;
 
 import com.example.eventhall.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,14 @@ public class UserRegisterService {
     private UserService userService;
     private PasswordEncoder passwordEncoder;
     private Pattern emailValidate;
+    private Pattern telNoValidate;
 
     @Autowired
-    public UserRegisterService(UserService userService, PasswordEncoder passwordEncoder, Pattern emailValidate) {
+    public UserRegisterService(UserService userService, PasswordEncoder passwordEncoder, @Qualifier("emailPattern") Pattern emailValidate, @Qualifier("telNoPattern") Pattern telNoValidate) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.emailValidate = emailValidate;
+        this.telNoValidate = telNoValidate;
     }
 
     public String registerUser(User registerRequest){
@@ -32,17 +35,29 @@ public class UserRegisterService {
             return "Register fail: email already exist";
         }
 
+        if(registerRequest.getUsername().length()<5){
+            return "Register fail: username is too short";
+        }
+
         if(userService.isUsernameExist(registerRequest.getUsername())){
             return "Register fail: username is already exist";
         }
 
-        //validate tel
+        if(registerRequest.getPassword().length()<5){
+            return "Register fail: password is too short";
+        }
 
-        //validate password length
+        if(registerRequest.getName().length()<5){
+            return "Register fail: name is too short";
+        }
 
-        //validate name length
+        if(registerRequest.getAge() < 18){
+            return "Register fail: you are underage";
+        }
 
-        //validate birthday *must be 18yo older
+        if(!telNoValidate.matcher(registerRequest.getTel()).matches()){
+            return "Register fail: tel no is not valid";
+        }
 
         //convert
         String encodedPassword = passwordEncoder.encode(registerRequest.getPassword());
@@ -58,8 +73,12 @@ public class UserRegisterService {
                 true
         );
 
-        userService.insertUser(user);
-        return "Register success";
+        if(userService.insertUser(user)){
+            return "Register success";
+        }
+
+        return "Register fail: error occour";
+
     }
 
 
