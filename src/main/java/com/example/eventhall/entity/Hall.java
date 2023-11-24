@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name= "hall")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,9 +16,9 @@ public class Hall {
 
     @Id
     @GeneratedValue(
-            strategy = GenerationType.AUTO
+            strategy = GenerationType.SEQUENCE
     )
-    private int id;
+    private Long id;
     private String hallName;
     private String location;
     private String size;
@@ -34,5 +34,13 @@ public class Hall {
         this.size = size;
         this.capasity = capasity;
         this.manager = manager;
+    }
+
+    public Hall(Long id, String hallName, String location, String size, int capasity) {
+        this.id = id;
+        this.hallName = hallName;
+        this.location = location;
+        this.size = size;
+        this.capasity = capasity;
     }
 }
