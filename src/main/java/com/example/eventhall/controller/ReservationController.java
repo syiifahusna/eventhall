@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @RequestMapping({"/u/reservation","/u/reservation/"})
@@ -65,13 +66,28 @@ public class ReservationController {
             model.addAttribute("message",message);
             return userDir + "/reservationform";
         }
-
-
     }
 
     @GetMapping("/success")
     public String reservationSuccess(){
         return userDir + "/reservationsuccess";
+    }
+
+    @GetMapping("/list")
+    public String reservationsList(Authentication authentication,Model model){
+        User userRequest = (User) authentication.getPrincipal();
+        List<Reservation> reservations = reservationService.reservationList(userRequest.getId());
+        if(!reservations.isEmpty()){
+            model.addAttribute("reservations",reservations);
+        }else{
+            model.addAttribute("message","No Reservation Found");
+        }
+        return userDir + "/reservations";
+    }
+
+    @GetMapping("/{rid}")
+    public String reservationsDetails(){
+        return userDir + "/reservationdetails";
     }
 
 }

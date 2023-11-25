@@ -10,6 +10,12 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
 @Service
 public class ReservationService {
 
@@ -49,4 +55,14 @@ public class ReservationService {
         }
 
     }
+
+    public List<Reservation> reservationList(Long userId){
+        try{
+            List<Reservation> reservations  = reservationRepository.findByUserIdExceptUserAndHallManager(userId);
+            return reservations;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to fetch reservations", e);
+        }
+    }
+
 }

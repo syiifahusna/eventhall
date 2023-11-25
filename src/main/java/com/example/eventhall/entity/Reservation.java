@@ -61,4 +61,18 @@ public class Reservation {
         this.dateEnd = dateEnd;
         this.note = note;
     }
+
+    public Reservation(Long id, String title, String purpose, LocalDate dateStart, LocalDate dateEnd, String note, Long hallId, String hallName) {
+        this.id = id;
+        this.title = title;
+        this.purpose = purpose;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.note = note;
+
+        Hall hall = new Hall();
+        hall.setId(hallId);
+        hall.setHallName(hallName);
+        this.hall = hall;
+    }
 }

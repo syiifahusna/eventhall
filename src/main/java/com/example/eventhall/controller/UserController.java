@@ -50,11 +50,6 @@ public class UserController {
         return userDir+"/about";
     }
 
-    @GetMapping("/location")
-    public String location(){
-        return userDir+"/location";
-    }
-
     @GetMapping("/news")
     public String news(){
         return userDir+"/news";

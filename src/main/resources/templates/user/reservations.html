@@ -9,12 +9,12 @@
     <!-- slider stylesheet -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
     <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
     <!-- Custom styles for this template -->
-    <link href="../css/style.css" rel="stylesheet" />
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
     <!-- responsive style -->
-    <link href="../css/responsive.css" rel="stylesheet" />
-    <title>Location</title>
+    <link th:href="@{/css/responsive.css}" rel="stylesheet" />
+    <title>Reservation Form</title>
 </head>
 <body>
     <div class="hero_area">
@@ -22,9 +22,9 @@
         <header class="header_section">
             <nav class="navbar navbar-expand-lg custom_nav-container ">
                 <a class="navbar-brand" href="/u/">
-                    <span>
-                      Event Hall Management System
-                    </span>
+                            <span>
+                              Event Hall Management System
+                            </span>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class=""></span>
@@ -64,48 +64,59 @@
         <!-- end header section -->
     </div>
     <!-- end hero area -->
-    <!-- location section -->
-    <section class="contact_section layout_padding">
-        <div class="container px-0">
-            <div class="heading_container ">
-                <h2 class="">
-                    Our Location
-                </h2>
+    <br>
+    <br>
+    <section th:if="${reservations}">
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h2>Reservation List</h2>
             </div>
         </div>
-        <div class="container container-bg">
-            <div class="row">
-                <div class="col-lg-7 col-md-6 px-0">
-                    <div class="map_container">
-                        <div class="map-responsive">
-                            <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Paris+France" width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%" allowfullscreen></iframe>
+    </section>
+    <section>
+        <table>
+            <thead>
+            <tr>
+                <td>Title</td>
+                <td>Hall</td>
+                <td>Date Start</td>
+                <td>Date End</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reservation : ${reservations}">
+                <td th:text="${reservation.title}"></td>
+                <td th:text="${reservation.hall.hallName}"></td>
+                <td th:text="${reservation.dateStart}"></td>
+                <td th:text="${reservation.dateEnd}"></td>
+                <td><a th:href="@{/u/reservation/__${reservation.id}__}">Details</a></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </section>
+
+    <!-- no reservation section -->
+    <section class="saving_section" th:if="${message}">
+        <br>
+        <div class="box">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="detail-box">
+                            <div class="heading_container">
+                                <h2 th:text="${message}"></h2>
+                                <br>
+                                <br>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-5  col-md-6 px-0">
-                        <form>
-                            <div class="detail-box">
-                                <div class="heading_container">
-                                    <h2>
-                                        Visit Us
-                                    </h2>
-                                </div>
-                                <p>
-                                    Vulputate odio ut enim blandit volutpat.
-                                    At consectetur lorem donec massa sapien
-                                    faucibus et. Pellentesque nec nam aliquam
-                                    sem et tortor consequat. In est ante in
-                                    nibh mauris cursus mattis molestie.
-                                </p>
-                            </div>
-                        </form>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- end location section -->
-
+    <!-- no reservation section -->
 
     <!-- footer section -->
     <footer class=" footer_section">
@@ -118,10 +129,9 @@
     </footer>
     <!-- footer section -->
 
-    <script src="../js/jquery-3.4.1.min.js"></script>
-    <script src="../js/bootstrap.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
-    </script>
-    <script src="../js/custom.js"></script>
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script th:src="@{/js/custom.js}"></script>
 </body>
 </html>
