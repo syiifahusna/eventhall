@@ -3,10 +3,28 @@ getYear();
 
 // to get current year
 function getYear() {
-    var currentDate = new Date();
-    var currentYear = currentDate.getFullYear();
+
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
     document.querySelector("#displayYear").innerHTML = currentYear;
+
+    if(document.getElementById('rstartdate') && document.getElementById('renddate')){
+        rstartdate = document.getElementById('rstartdate')
+        renddate = document.getElementById('renddate')
+
+        const today = currentDate.toISOString().split('T')[0];
+        rstartdate.setAttribute('min', today);
+
+        if(rstartdate.value){
+            const nextDay = new Date(rstartdate.value);
+            const tomorrow = nextDay.toISOString().split('T')[0];
+            renddate.setAttribute('min', tomorrow);
+        }
+
+    }
 }
+
+
 
 // owl carousel 
 
@@ -28,3 +46,6 @@ $('.owl-carousel').owlCarousel({
         }
     }
 })
+
+
+

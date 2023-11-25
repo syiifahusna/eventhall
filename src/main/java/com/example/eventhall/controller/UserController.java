@@ -17,11 +17,10 @@ import java.util.List;
 @RequestMapping("/u")
 public class UserController {
 
-    private final HallService hallService;
-
     @Value("${app.user.dir}")
     private String userDir;
 
+    private final HallService hallService;
     @Autowired
     public UserController(HallService hallService) {
         this.hallService = hallService;

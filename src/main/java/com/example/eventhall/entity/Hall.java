@@ -23,24 +23,27 @@ public class Hall {
     private String location;
     private String size;
     private int capasity;
+    private Boolean status;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="manager_id")
     private Admin manager;
 
-    public Hall(String hallName, String location, String size, int capasity, Admin manager) {
+    public Hall(String hallName, String location, String size, int capasity, Boolean status, Admin manager) {
         this.hallName = hallName;
         this.location = location;
         this.size = size;
         this.capasity = capasity;
+        this.status = status;
         this.manager = manager;
     }
 
-    public Hall(Long id, String hallName, String location, String size, int capasity) {
+    public Hall(Long id, String hallName, String location, String size, int capasity, Boolean status) {
         this.id = id;
         this.hallName = hallName;
         this.location = location;
         this.size = size;
         this.capasity = capasity;
+        this.status = status;
     }
 }

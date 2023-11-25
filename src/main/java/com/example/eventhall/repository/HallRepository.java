@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface HallRepository extends JpaRepository<Hall, Integer> {
+public interface HallRepository extends JpaRepository<Hall, Long> {
 
-//    @Query("SELECT h.id, h.hallName, h.location, h.size, h.capasity FROM Hall h")
+//    @Query("SELECT h.id, h.hallName, h.location, h.size, h.capasity, h.status FROM Hall h")
 //    List<Object[]> findAllWithoutManager();
-    @Query("SELECT new com.example.eventhall.entity.Hall(h.id, h.hallName, h.location, h.size, h.capasity) FROM Hall h")
+    @Query("SELECT new com.example.eventhall.entity.Hall(h.id, h.hallName, h.location, h.size, h.capasity, h.status) FROM Hall h")
     List<Hall> findAllWithoutManager();
 
 }

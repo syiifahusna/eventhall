@@ -270,6 +270,8 @@ a:focus {
   width: 275px;
 }
 
+
+
 .slider_section .detail-box {
   padding-left: 45px;
   margin: 45px 0;
@@ -657,6 +659,17 @@ form{
   color: #101010;
 }
 
+.contact_section textarea {
+  width: 100%;
+  border: 1px solid #919191;
+  height: 50px;
+  margin-bottom: 25px;
+  padding-left: 25px;
+  background-color: transparent;
+  outline: none;
+  color: #101010;
+}
+
 .contact_section input::-webkit-input-placeholder {
   color: #131313;
 }
@@ -889,6 +902,10 @@ input#rememberMe{
 
 }
 
+.detail-box{
+    padding-right: 35px;
+    padding: 45px 20px;
+}
 
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */
