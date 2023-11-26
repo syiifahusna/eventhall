@@ -58,11 +58,27 @@ public class ReservationService {
 
     public List<Reservation> reservationList(Long userId){
         try{
-            List<Reservation> reservations  = reservationRepository.findByUserIdExceptUserAndHallManager(userId);
+            List<Reservation> reservations  = reservationRepository.findByReservationUserIdExceptUserAndHallManager(userId);
             return reservations;
         } catch (Exception e) {
             throw new RuntimeException("Failed to fetch reservations", e);
         }
+    }
+
+    public Reservation getReservationDetails(Long rId, Long userId){
+        try{
+            Reservation reservation = reservationRepository.findReservationByIdExceptUser(rId,userId);
+            if(reservation != null){
+                return reservation;
+            }else{
+                return null;
+            }
+
+
+        }catch (Exception e){
+            throw new RuntimeException("Failed to fetch reservation entity", e);
+        }
+
     }
 
 }

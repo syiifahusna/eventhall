@@ -96,6 +96,28 @@
   </section>
   <!-- no reservation section -->
 
+
+  <section th:if="${reservation}">
+    <p th:text="${reservation.id}"></p>
+    <p th:text="${reservation.title}"></p>
+    <p th:text="${reservation.purpose}"></p>
+    <p th:text="${reservation.dateStart}"></p>
+    <p th:text="${reservation.dateEnd}"></p>
+    <p th:text="${reservation.note}"></p>
+    <p th:text="${reservation.hall.id}"></p>
+    <p th:text="${reservation.hall.hallName}"></p>
+    <p th:text="${reservation.hall.location}"></p>
+    <p th:text="${reservation.hall.size}"></p>
+    <p th:text="${reservation.hall.capasity}"></p>
+    <p th:text="${reservation.hall.manager.name}"></p>
+    <p th:text="${reservation.hall.manager.email}"></p>
+
+    <button>Cancel Booking</button>
+
+    <button>Add Event for this hall</button>
+
+  </section>
+
   <!-- footer section -->
   <footer class=" footer_section">
     <div class="container">

@@ -35,7 +35,7 @@ public class ReservationController {
     public String reservation(@PathVariable("hallId") Long hallId, Model model){
 
         Hall hall = hallService.getHallDetails(hallId);
-        if(!hall.getId().toString().isEmpty()){
+        if(hall != null){
             model.addAttribute("hall",hall);
         }else{
             model.addAttribute("message","Hall does not exist");
@@ -85,8 +85,16 @@ public class ReservationController {
         return userDir + "/reservations";
     }
 
-    @GetMapping("/{rid}")
-    public String reservationsDetails(){
+    @GetMapping("/{rId}")
+    public String reservationsDetails(@PathVariable("rId") Long rId, Authentication authentication, Model model){
+        User userRequest = (User) authentication.getPrincipal();
+        Reservation reservation = reservationService.getReservationDetails(rId, userRequest.getId());
+        if(reservation != null){
+            model.addAttribute("reservation",reservation);
+        }else{
+            model.addAttribute("message","reservation does not exist");
+        }
+
         return userDir + "/reservationdetails";
     }
 

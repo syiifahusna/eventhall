@@ -75,4 +75,43 @@ public class Reservation {
         hall.setHallName(hallName);
         this.hall = hall;
     }
+
+    public Reservation(Long id,
+                       String title,
+                       String purpose,
+                       LocalDate dateStart,
+                       LocalDate dateEnd,
+                       String note,
+                       Long hallId,
+                       String hallName,
+                       String hallLocation,
+                       String hallSize,
+                       Integer hallCapasity,
+                       Long managerId,
+                       String managerName,
+                       String managerEmail) {
+        this.id = id;
+        this.title = title;
+        this.purpose = purpose;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.note = note;
+
+        Admin admin = new Admin();
+        admin.setId(managerId);
+        admin.setName(managerName);
+        admin.setEmail(managerEmail);
+
+        Hall hall = new Hall();
+        hall.setId(hallId);
+        hall.setHallName(hallName);
+        hall.setLocation(hallLocation);
+        hall.setSize(hallSize);
+        hall.setCapasity(hallCapasity);
+        hall.setManager(admin);
+
+        this.hall = hall;
+
+
+    }
 }

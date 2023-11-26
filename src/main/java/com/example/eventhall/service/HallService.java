@@ -36,7 +36,7 @@ public class HallService {
             if(hall.isPresent()) {
                 return hall.get();
             }else{
-                return new Hall();
+                return null;
             }
         }catch(EntityNotFoundException e){
             throw e;
