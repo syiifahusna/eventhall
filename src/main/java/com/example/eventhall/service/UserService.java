@@ -2,6 +2,7 @@ package com.example.eventhall.service;
 
 import com.example.eventhall.entity.User;
 import com.example.eventhall.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,6 +32,21 @@ public class UserService implements UserDetailsService {
         }
 
         return optinalUser.get();
+    }
+
+    public User getUserById(Long userId){
+        try{
+
+            Optional<User> optinalUser =  userRepository.findById(userId);
+            if(optinalUser.isEmpty()){
+                throw new EntityNotFoundException("User not Found");
+            }
+
+            return optinalUser.get();
+
+        }catch (Exception e){
+            throw new RuntimeException("Failed to fetch user entity", e);
+        }
     }
 
     public Boolean isUsernameExist(String username){

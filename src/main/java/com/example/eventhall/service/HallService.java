@@ -7,8 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -30,11 +29,24 @@ public class HallService {
         }
     }
 
-    public Hall getHallDetails(Long hallId){
+    public Hall getHallDetailsWithoutManagerUsernameAndPassword(Long hallId){
         try{
-            Optional<Hall> hall = hallRepository.findById(hallId);
-            if(hall.isPresent()) {
-                return hall.get();
+            Hall hall = hallRepository.findHallWithoutManagerUsernameAndPassword(hallId);
+            if(hall != null) {
+                return hall;
+            }else{
+                return null;
+            }
+        }catch(EntityNotFoundException e){
+            throw e;
+        }
+    }
+
+    public Hall getHallById(Long hallId) {
+        try {
+            Optional<Hall> optinalHall = hallRepository.findById(hallId);
+            if(optinalHall.isPresent()){
+                return optinalHall.get();
             }else{
                 return null;
             }

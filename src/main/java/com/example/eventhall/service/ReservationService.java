@@ -3,33 +3,28 @@ package com.example.eventhall.service;
 import com.example.eventhall.entity.Hall;
 import com.example.eventhall.entity.Reservation;
 import com.example.eventhall.entity.User;
-import com.example.eventhall.repository.HallRepository;
 import com.example.eventhall.repository.ReservationRepository;
 import com.example.eventhall.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class ReservationService {
 
-    private final HallRepository hallRepository;
-    private final UserRepository userRepository;
+    private final HallService hallService;
+    private final UserService userService;
     private final ReservationRepository reservationRepository;
 
     @Autowired
-    public ReservationService(HallRepository hallRepository, UserRepository userRepository, ReservationRepository reservationRepository) {
-        this.hallRepository = hallRepository;
-        this.userRepository = userRepository;
+    public ReservationService(HallService hallService, UserService userService, ReservationRepository reservationRepository) {
+        this.hallService = hallService;
+        this.userService = userService;
         this.reservationRepository = reservationRepository;
     }
-
 
     public String  attemptReservation(Reservation reservationRequest, User userRequest, Long hallId) {
 
@@ -37,8 +32,8 @@ public class ReservationService {
 
 
         //convert
-        Hall hall = hallRepository.findById(hallId).orElseThrow(EntityNotFoundException::new);
-        User user = userRepository.findById(userRequest.getId()).orElseThrow(EntityNotFoundException::new);
+        Hall hall = hallService.getHallById(hallId);
+        User user = userService.getUserById(userRequest.getId());
 
         Reservation reservation = new Reservation(reservationRequest.getTitle(),
                 reservationRequest.getPurpose(),
@@ -48,7 +43,7 @@ public class ReservationService {
 
         //save
         Reservation saved = reservationRepository.save(reservation);
-        if(!saved.getTitle().isEmpty()){
+        if(saved != null){
             return "";
         }else{
             return "There something wrong";
@@ -73,12 +68,23 @@ public class ReservationService {
             }else{
                 return null;
             }
-
-
         }catch (Exception e){
             throw new RuntimeException("Failed to fetch reservation entity", e);
         }
 
+    }
+
+    public Reservation getReservationById(Long rId){
+        try {
+            Optional<Reservation> optionalReservation = reservationRepository.findById(rId);
+            if(optionalReservation.isPresent()){
+                return optionalReservation.get();
+            }else{
+                return null;
+            }
+        }catch(EntityNotFoundException e){
+            throw e;
+        }
     }
 
 }

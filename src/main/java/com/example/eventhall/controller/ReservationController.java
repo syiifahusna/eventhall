@@ -1,8 +1,10 @@
 package com.example.eventhall.controller;
 
+import com.example.eventhall.entity.Event;
 import com.example.eventhall.entity.Hall;
 import com.example.eventhall.entity.Reservation;
 import com.example.eventhall.entity.User;
+import com.example.eventhall.service.EventService;
 import com.example.eventhall.service.HallService;
 import com.example.eventhall.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +25,20 @@ public class ReservationController {
     private String userDir;
 
     private final HallService hallService;
+    private final EventService eventService;
     private final ReservationService reservationService;
 
     @Autowired
-    public ReservationController(HallService hallService, ReservationService reservationService) {
+    public ReservationController(HallService hallService, EventService eventService, ReservationService reservationService) {
         this.hallService = hallService;
+        this.eventService = eventService;
         this.reservationService = reservationService;
     }
 
     @GetMapping("/form/{hallId}")
     public String reservation(@PathVariable("hallId") Long hallId, Model model){
 
-        Hall hall = hallService.getHallDetails(hallId);
+        Hall hall = hallService.getHallDetailsWithoutManagerUsernameAndPassword(hallId);
         if(hall != null){
             model.addAttribute("hall",hall);
         }else{
@@ -48,14 +52,14 @@ public class ReservationController {
     public String attemptReserve(@RequestParam("title") String title,
                                  @RequestParam("purpose") String purpose,
                                  @RequestParam("dateStart") String dateStart,
-                                 @RequestParam("dateEnd") String dataEnd,
+                                 @RequestParam("dateEnd") String dateEnd,
                                  @RequestParam("note") String note,
                                  @PathVariable("hallId") Long hallId,
                                  Authentication authentication,
                                  Model model){
 
         LocalDate startDate = LocalDate.parse(dateStart);
-        LocalDate endDate = LocalDate.parse(dataEnd);
+        LocalDate endDate = LocalDate.parse(dateEnd);
         User userRequest = (User) authentication.getPrincipal();
         Reservation reservationRequest = new Reservation(title,purpose,startDate,endDate,note);
 
@@ -89,7 +93,11 @@ public class ReservationController {
     public String reservationsDetails(@PathVariable("rId") Long rId, Authentication authentication, Model model){
         User userRequest = (User) authentication.getPrincipal();
         Reservation reservation = reservationService.getReservationDetails(rId, userRequest.getId());
+        List<Event> events = eventService.eventList(rId);
         if(reservation != null){
+            if(!events.isEmpty()){
+                model.addAttribute("events",events);
+            }
             model.addAttribute("reservation",reservation);
         }else{
             model.addAttribute("message","reservation does not exist");

@@ -25,6 +25,8 @@ public class Hall {
     private String location;
     private String size;
     private int capasity;
+
+    @Column(columnDefinition = "BOOLEAN")
     private Boolean status;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -48,4 +50,20 @@ public class Hall {
         this.capasity = capasity;
         this.status = status;
     }
+
+    public Hall(Long id, String hallName, String location, String size, int capasity, Boolean status, Long managerId, String managerName, String managerEmail) {
+        this.id = id;
+        this.hallName = hallName;
+        this.location = location;
+        this.size = size;
+        this.capasity = capasity;
+        this.status = status;
+
+        Admin manager = new Admin();
+        manager.setId(managerId);
+        manager.setName(managerName);
+        manager.setEmail(managerEmail);
+        this.manager = manager;
+    }
+
 }

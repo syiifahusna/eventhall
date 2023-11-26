@@ -32,16 +32,30 @@ public class Event {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="eventhallmapping",
-            joinColumns = @JoinColumn(
-                    name="hall_id",
-                    referencedColumnName = "id"
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "event_id",
-                    referencedColumnName = "id"
-            )
-    )
-    private List<Hall> halls;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name ="reservation_id")
+    private Reservation reservation;
+
+    public Event(String eventName, String description, LocalDate startDate, LocalDate endDate) {
+        this.eventName = eventName;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+
+    public Event(Long id, String eventName, LocalDate startDate, LocalDate endDate) {
+        this.id = id;
+        this.eventName = eventName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public Event(String eventName, String description, LocalDate startDate, LocalDate endDate, Reservation reservation) {
+        this.eventName = eventName;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.reservation = reservation;
+    }
 }

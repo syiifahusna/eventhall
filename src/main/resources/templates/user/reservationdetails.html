@@ -75,7 +75,7 @@
   </section>
 
 
-  <!-- no reservation section -->
+  <!-- alert section -->
   <section class="saving_section" th:if="${message}">
     <br>
     <div class="box">
@@ -94,7 +94,7 @@
       </div>
     </div>
   </section>
-  <!-- no reservation section -->
+  <!-- alert section -->
 
 
   <section th:if="${reservation}">
@@ -112,10 +112,29 @@
     <p th:text="${reservation.hall.manager.name}"></p>
     <p th:text="${reservation.hall.manager.email}"></p>
 
-    <button>Cancel Booking</button>
+    <a th:href="@{/u/event/form/__${reservation.id}__}">Add Event for this hall</a>
 
-    <button>Add Event for this hall</button>
+  </section>
 
+  <section th:if="${events}">
+    <table>
+      <thead>
+        <tr>
+          <td>Event Name</td>
+          <td>Date Start</td>
+          <td>Date End</td>
+          <td>Action</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="event : ${events}">
+          <td th:text="${event.eventName}"></td>
+          <td th:text="${event.startDate}"></td>
+          <td th:text="${event.endDate}"></td>
+          <td><a>View Event</a></td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
   <!-- footer section -->
