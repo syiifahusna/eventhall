@@ -1,198 +1,163 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- slider stylesheet -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-    <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
-    <!-- Custom styles for this template -->
-    <link th:href="@{/css/style.css}" rel="stylesheet" />
-    <!-- responsive style -->
-    <link th:href="@{/css/responsive.css}" rel="stylesheet" />
-    <title>Reservation Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.rtl.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.rtl.min.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+    <title></title>
 </head>
 <body>
-    <div class="hero_area">
-        <!-- header section strats -->
-        <header class="header_section">
-            <nav class="navbar navbar-expand-lg custom_nav-container ">
-                <a class="navbar-brand" href="/u/">
-                        <span>
-                          Event Hall Management System
-                        </span>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class=""></span>
-                </button>
-
-                <div class="collapse navbar-collapse innerpage_navbar" id="navbarSupportedContent">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/u/home">
-                                Home
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/u/hall">
-                                Hall
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/u/about">
-                                About
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/u/location">
-                                Location
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/u/news">
-                                News
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <!-- end header section -->
+<div class="container">
+    <header class="border-bottom lh-1 py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 pt-1">
+            </div>
+            <div class="col-4 text-center">
+                <a class="blog-header-logo text-body-emphasis text-decoration-none" th:href="@{/home}"><h3>Event Hall Management System</h3></a>
+            </div>
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <form method="post" th:action="@{/logout}">
+                    <input type="submit" name="logout" value="Logout" class="btn btn-sm btn-outline-secondary">
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="nav-scroller py-1 mb-3 border-bottom">
+        <nav class="nav nav-underline justify-content-between">
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/u/home}">Home</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/u/reservation/list}">Reservations</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/u/hall}">Halls</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/u/about}">About</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/u/news}">News</a>
+        </nav>
     </div>
-    <!-- end hero area -->
-    <br>
-    <br>
+</div>
+<main class="container">
+    <h2 class="pt-2 text-center">
+        Reserve This Hall
+    </h2>
+    <hr class="my-5">
+    <div th:if="${message}" class="alert alert-primary" role="alert">
+        <p th:text="${message}"></p>
+    </div>
     <div th:if="${hall}">
-        <section>
-            <div class="container">
-                <div class="heading_container heading_center">
-                    <h2 th:text="${hall.hallName}"></h2>
+        <div class="container">
+            <h4 class="pt-2 text-center" th:text="${hall.hallName}"></h4>
+            <div class="row g-4 py-5 row-cols-1 row-cols-lg-3 text-center">
+                <div class="feature col">
+                    <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                        <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"></use></svg>
+                    </div>
+                    <h3 class="fs-2 text-body-emphasis">Location</h3>
+                    <p th:text="${hall.location}"></p>
+                </div>
+                <div class="feature col">
+                    <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                        <svg class="bi" width="1em" height="1em"><use xlink:href="#people-circle"></use></svg>
+                    </div>
+                    <h3 class="fs-2 text-body-emphasis">Size</h3>
+                    <p th:text="${hall.size}"></p>
+                </div>
+                <div class="feature col">
+                    <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                        <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"></use></svg>
+                    </div>
+                    <h3 class="fs-2 text-body-emphasis">Capacity</h3>
+                    <p th:text="'Around ' + ${hall.capasity} + ' people'"></p>
                 </div>
             </div>
-        </section>
-
-        <!-- detail section -->
-        <section class="contact_section layout_padding">
-            <div class="container container-bg">
-                <div class="row">
-                    <div class="col-lg-7  col-md-6 px-0">
-                        <div class="img-box">
-                            ==Hall Image==
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-5 px-0">
-                        <div class="detail-box">
-                            <span></span><p th:text="'Location : ' + ${hall.location}"></p>
-                            <p th:text="'Size : '+ ${hall.size}"></p>
-<!--                            <p th:text="'Around ' + ${hall.capacity} + ' people'"></p>-->
-                        </div>
-                        <div class="detail-box">
-                            <p>
-                                Contact hall manager for more info<br>
-                                <span th:text="${hall.manager.name}"></span><br>
-                                <span th:text="${hall.manager.email}"></span>
-                            </p>
-                        </div>
+        </div>
+        <div class="container">
+            <h4 class="pt-2 text-center">
+                Hall Album
+            </h4>
+            <div class="row" data-masonry='{"percentPosition": true }'>
+                <div class="col-sm-6 col-lg-4 mb-4">
+                    <div class="card">
+                        <img class="bd-placeholder-img card-img-top" src=".." width="100%" height="200px" />
                     </div>
                 </div>
-            </div>
-        </section>
-        <!-- end detail section -->
-
-        <!-- form section -->
-        <section class="contact_section layout_padding">
-            <section th:if="${message}" class="alerts alerts d-flex justify-content-center">
-                <div class="box">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="detail-box">
-                                    <div class="heading_container">
-                                        <h4 th:text="${message}"></h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="col-sm-6 col-lg-4 mb-4">
+                    <div class="card">
+                        <img class="bd-placeholder-img card-img-top" src=".." width="100%" height="200px" />
                     </div>
                 </div>
-            </section>
-            <div class="container container-bg">
-                <div class="row">
-                    <div class="col-md-6 col-lg-5 px-0">
-                        <form th:action="@{/u/reservation/attemptreserve/__${hall.id}__}" method="post">
-                            <div>
-                                Title: <input type="text" name="title" required>
-                            </div>
-                            <div>
-                                Purpose : <br>
-                                <span>eg : wedding, talent show, launching product, etc</span>
-                                <input type="text" name="purpose" required>
-                            </div>
-                            <div>
-                                Date Start: <input id="rstartdate" type="date" name="dateStart" onchange="getYear()" required>
-                            </div>
-                            <div>
-                                Date End : <input id="renddate" type="date" name="dateEnd" required>
-                            </div>
-                            <div>
-                                Note : <textarea name="note"></textarea>
-                            </div>
-                            <div class="d-flex">
-                                <input type="submit" value="Submit Hall Reservation">
-                            </div>
-                        </form>
+                <div class="col-sm-6 col-lg-4 mb-4">
+                    <div class="card">
+                        <img class="bd-placeholder-img card-img-top" src=".." width="100%" height="200px" />
                     </div>
-                    <div class="col-lg-7  col-md-6 px-0">
-                        <div class="img-box">
-                            ==Hall Image==
-                        </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 mb-4">
+                    <div class="card">
+                        <img class="bd-placeholder-img card-img-top" src=".." width="100%" height="200px" />
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- end form section -->
+        </div>
+        <div class="container text-center">
+            <h4 class="pt-2">
+                Contact hall manager for more Info
+            </h4>
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-4">
+                    <img class="bd-placeholder-img rounded-circle" width="140" height="140" />
+                    <h2 class="fw-normal" th:text="${hall.manager.name}"></h2>
+                    <p th:text="${hall.manager.email}"></p>
+                </div><!-- /.col-lg-4 -->
+            </div>
+        </div>
+        <div class="col-md-10 mx-auto col-lg-6 py-5">
+            <div th:if="${message}" class="alert alert-primary" role="alert">
+                <p th:text="${message}"></p>
+            </div>
+            <form th:action="@{/u/reservation/attemptreserve/__${hall.id}__}" method="post" class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingTitle" name="title" required>
+                    <label for="floatingTitle">Reservation Title</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="purpose" class="form-control" id="floatingPurpose" name="purpose" required>
+                    <label for="floatingPurpose">Purpose</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="floatingDateStart" name="dateStart"  onchange="pickDate()" required>
+                    <label for="floatingDateStart">Reservation Date</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="floatingDateEnd" name="dateEnd" required>
+                    <label for="floatingDateEnd">Until</label>
+                </div>
+                <div class="form-floating mb-3">
+                <textarea class="form-control" name="note" >
+                </textarea>
+                    <label>Note</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Reserve</button>
+            </form>
+        </div>
     </div>
 
-    <!-- no hall section -->
-    <section class="saving_section" th:if="${message}">
-        <br>
-        <div class="box">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="detail-box">
-                            <div class="heading_container">
-                                <h2 th:text="${message}"></h2>
-                                <br>
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- no hall section -->
+</main>
+<footer class="py-5 text-center text-body-secondary bg-body-tertiary">
+    <p>Template built by Bootstrap</a></p>
+    <p class="mb-0">
+        <a href="#">Back to top</a>
+    </p>
+</footer>
 
-
-    <!-- footer section -->
-    <footer class=" footer_section">
-        <div class="container">
-            <p>
-                &copy; <span id="displayYear"></span> All Rights Reserved By
-                <a href="https://html.design/">Free Html Templates</a>
-            </p>
-        </div>
-    </footer>
-    <!-- footer section -->
-
-<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/js/bootstrap.js}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/custom.js}"></script>
+<script async src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"></script></body>
+
+
 </body>
 </html>
