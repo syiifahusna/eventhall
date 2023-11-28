@@ -19,7 +19,7 @@
             <div class="col-4 pt-1">
             </div>
             <div class="col-4 text-center">
-                <a class="blog-header-logo text-body-emphasis text-decoration-none" th:href="@{/home}"><h3>Event Hall Management System</h3></a>
+                <a class="blog-header-logo text-body-emphasis text-decoration-none" th:href="@{/u/home}"><h3>Event Hall Management System</h3></a>
             </div>
             <div class="col-4 d-flex justify-content-end align-items-center">
                 <form method="post" th:action="@{/logout}">
@@ -113,8 +113,8 @@
             </div>
         </div>
         <div class="col-md-10 mx-auto col-lg-6 py-5">
-            <div th:if="${message}" class="alert alert-primary" role="alert">
-                <p th:text="${message}"></p>
+            <div th:if="${formmessage}" class="alert alert-primary" role="alert">
+                <p th:text="${formmessage}"></p>
             </div>
             <form th:action="@{/u/reservation/attemptreserve/__${hall.id}__}" method="post" class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
                 <div class="form-floating mb-3">

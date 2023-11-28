@@ -13,8 +13,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Controller
@@ -23,7 +25,6 @@ public class ReservationController {
 
     @Value("${app.user.dir}")
     private String userDir;
-
     private final HallService hallService;
     private final EventService eventService;
     private final ReservationService reservationService;
@@ -60,14 +61,17 @@ public class ReservationController {
 
         LocalDate startDate = LocalDate.parse(dateStart);
         LocalDate endDate = LocalDate.parse(dateEnd);
+
         User userRequest = (User) authentication.getPrincipal();
         Reservation reservationRequest = new Reservation(title,purpose,startDate,endDate,note);
-
         String message = reservationService.attemptReservation(reservationRequest,userRequest,hallId);
+
         if(message.isEmpty()){
             return "redirect:/u/reservation/success";
         }else{
-            model.addAttribute("message",message);
+            Hall hall = hallService.getHallDetailsWithoutManagerUsernameAndPassword(hallId);
+            model.addAttribute("hall",hall);
+            model.addAttribute("formmessage",message);
             return userDir + "/reservationform";
         }
     }

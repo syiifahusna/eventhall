@@ -19,7 +19,7 @@
       <div class="col-4 pt-1">
       </div>
       <div class="col-4 text-center">
-        <a class="blog-header-logo text-body-emphasis text-decoration-none" th:href="@{/home}"><h3>Event Hall Management System</h3></a>
+        <a class="blog-header-logo text-body-emphasis text-decoration-none" th:href="@{/u/home}"><h3>Event Hall Management System</h3></a>
       </div>
       <div class="col-4 d-flex justify-content-end align-items-center">
         <form method="post" th:action="@{/logout}">
@@ -46,34 +46,67 @@
   <div th:if="${message}" class="alert alert-primary" role="alert">
     <p th:text="${message}"></p>
   </div>
-  <div class="col-md-10 mx-auto col-lg-6 py-5">
-<!--    <div th:if="${message}" class="alert alert-primary" role="alert">-->
-<!--      <p th:text="${message}"></p>-->
-<!--    </div>-->
-    <div class="row g-5" th:if="${reservation}">
-      <div class="col-md-7 col-lg-12">
-        <form class="needs-validation" th:action="@{/u/event/attemptcreateevent/__${reservation.id}__}" method="post">
-          <div class="row g-3">
-            <div class="col-sm-6">
-              <label for="eventName" class="form-label">Event Name</label>
-              <input type="text" name="eventName" class="form-control" id="eventName" required>
+  <div th:if="${reservation}" class="container text-center">
+    <h4 class="pt-2"></h4>
+    <hr class="my-5">
+    <table class="table table-dark table-borderless">
+      <tbody>
+        <tr>
+          <th>#</th>
+          <td th:text="${reservation.id}"></td>
+        </tr>
+        <tr>
+          <th>Title</th>
+          <td th:text="${reservation.title}"></td>
+        </tr>
+        <tr>
+          <th>Purpose</th>
+          <td th:text="${reservation.purpose}"></td>
+        </tr>
+        <tr>
+          <th>Reservation Date</th>
+          <td th:text="${reservation.dateStart}"></td>
+        </tr>
+        <tr>
+          <th>End Date</th>
+          <td th:text="${reservation.dateEnd}"></td>
+        </tr>
+        <tr>
+          <th>Note</th>
+          <td th:text="${reservation.note}"></td>
+        </tr>
+      </tbody>
+    </table>
+    <hr class="my-5">
+    <div class="col-md-10 mx-auto col-lg-6 py-5">
+      <div th:if="${formmessage}" class="alert alert-primary" role="alert">
+        <p th:text="${formmessage}"></p>
+      </div>
+      <div class="row g-5" th:if="${reservation}">
+        <div class="col-md-7 col-lg-12">
+          <form class="needs-validation" th:action="@{/u/event/attemptcreateevent/__${reservation.id}__}" method="post">
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label for="eventName" class="form-label">Event Name</label>
+                <input type="text" name="eventName" class="form-control" id="eventName" required>
+              </div>
+              <div class="col-12">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" required></textarea>
+              </div>
+              <div class="col-12">
+                <label for="dateStart" class="form-label">Event Date From</label>
+                <input type="date" class="form-control" id="dateStart" onchange="pickEventDate()" th:min="${reservation.dateStart}" th:max="${reservation.dateEnd}" name="dateStart" required>
+              </div>
+              <div class="col-12">
+                <label for="dateEnd" class="form-label">Event Date Until</label>
+                <input type="date" class="form-control" id="dateEnd" name="dateEnd" th:max="${reservation.dateEnd}" required>
+              </div>
             </div>
-            <div class="col-12">
-              <label for="description" class="form-label">Description</label>
-              <textarea class="form-control" id="description" name="description" required></textarea>
-            </div>
-            <div class="col-12">
-              <label for="dateStart" class="form-label">Event Date From</label>
-              <input type="date" class="form-control" id="dateStart" name="dateStart" required>
-            </div>
-            <div class="col-12">
-              <label for="dateEnd" class="form-label">Event Date Until</label>
-              <input type="date" class="form-control" id="dateEnd" name="dateEnd" required>
-            </div>
-          </div>
-          <hr class="my-4">
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Create Event</button>
-        </form>
+            <hr class="my-4">
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Create Event</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -89,6 +122,7 @@
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/js/bootstrap.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
 <script async src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"></script></body>
 
 

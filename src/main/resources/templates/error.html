@@ -1,72 +1,66 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- slider stylesheet -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-    <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
-    <!-- Custom styles for this template -->
-    <link th:href="@{/css/style.css}" rel="stylesheet" />
-    <!-- responsive style -->
-    <link th:href="@{/css/responsive.css}" rel="stylesheet" />
-    <title>Error</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.rtl.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.rtl.min.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+    <title></title>
 </head>
 <body>
-    <br>
-    <br>
-    <br>
-    <!-- error section -->
-
-    <section class="saving_section ">
-        <div class="box">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="detail-box">
-                            <div class="heading_container">
-                                <h2>
-                                    Error
-                                </h2>
-                            </div>
-                            <p>
-                                Vulputate odio ut enim blandit volutpat.
-                                At consectetur lorem donec massa sapien
-                                faucibus et. Pellentesque nec nam aliquam
-                            </p>
-                            <div class="btn-box">
-                                <a onclick="history.back()" class="btn1">
-                                    Back
-                                </a>
-                            </div>
-                            <br>
-                            <br>
-                        </div>
-                    </div>
-                </div>
+<div class="container">
+    <header class="border-bottom lh-1 py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 pt-1">
+            </div>
+            <div class="col-4 text-center">
+                <a class="blog-header-logo text-body-emphasis text-decoration-none" th:href="@{/u/home}"><h3>Event Hall Management System</h3></a>
+            </div>
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <form method="post" th:action="@{/logout}">
+                    <input type="submit" name="logout" value="Logout" class="btn btn-sm btn-outline-secondary">
+                </form>
             </div>
         </div>
-    </section>
-
-    <!-- end error section -->
-    <!-- footer section -->
-    <footer class=" footer_section">
-        <div class="container">
-            <p>
-                &copy; <span id="displayYear"></span> All Rights Reserved By
-                <a href="https://html.design/">Free Html Templates</a>
+    </header>
+    <div class="nav-scroller py-1 mb-3 border-bottom">
+        <nav class="nav nav-underline justify-content-between">
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/u/home}">Home</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/u/reservation/list}">Reservations</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/u/hall}">Halls</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/u/about}">About</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/u/news}">News</a>
+        </nav>
+    </div>
+</div>
+<main class="container">
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+        <div class="col-lg-6 px-0">
+            <h1 class="display-4 fst-italic">You have encounter an Error</h1>
+            <p class="lead my-3">
+                Click <a onclick="history.back()">here</a> to go back
             </p>
         </div>
-    </footer>
-    <!-- footer section -->
+    </div>
+</main>
+<footer class="py-5 text-center text-body-secondary bg-body-tertiary">
+    <p>Template built by Bootstrap</a></p>
+    <p class="mb-0">
+        <a href="#">Back to top</a>
+    </p>
+</footer>
 
-    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
-    <script th:src="@{/js/bootstrap.js}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script th:src="@{/js/custom.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script async src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"></script></body>
+
+
 </body>
 </html>

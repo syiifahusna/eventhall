@@ -1,3 +1,7 @@
+pickDate()
+
+pickEventDate()
+
 function pickDate() {
 
     if(document.getElementById('floatingDateStart') && document.getElementById('floatingDateEnd')){
@@ -15,4 +19,17 @@ function pickDate() {
         }
 
     }
+}
+
+function pickEventDate(){
+    if(document.getElementById('dateStart') && document.getElementById('dateEnd')){
+        estartdate = document.getElementById('dateStart')
+        eenddate = document.getElementById('dateEnd')
+
+        if(estartdate.value){
+            eenddate.setAttribute('min',estartdate.value)
+        }
+
+    }
+
 }

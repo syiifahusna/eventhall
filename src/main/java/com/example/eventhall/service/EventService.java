@@ -19,6 +19,7 @@ public class EventService{
     }
 
     public Reservation getHallReservationDetails(Long rId, Long userId) {
+
         Reservation reservation = reservationService.getReservationDetails(rId,userId);
         return reservation;
     }
@@ -50,6 +51,20 @@ public class EventService{
             return events;
         } catch (Exception e) {
             throw new RuntimeException("Failed to fetch reservations", e);
+        }
+
+    }
+
+    public Event getEventDetails(Long eId, Long userId) {
+        try{
+            Event event= eventRepository.findEventByEventIdExceptUserAndHallManager(eId,userId);
+            if(event !=null){
+                return event;
+            }else{
+                return null;
+            }
+        }catch (Exception e){
+            throw new RuntimeException("Failed to fetch event entity", e);
         }
 
     }

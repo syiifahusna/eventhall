@@ -43,7 +43,6 @@ public class Event {
         this.endDate = endDate;
     }
 
-
     public Event(Long id, String eventName, LocalDate startDate, LocalDate endDate) {
         this.id = id;
         this.eventName = eventName;
@@ -56,6 +55,34 @@ public class Event {
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.reservation = reservation;
+    }
+
+    public Event(Long id,
+                 String eventName,
+                 String description,
+                 LocalDate startDate,
+                 LocalDate endDate,
+                 Long rId,
+                 String title,
+                 String purpose,
+                 LocalDate dateStart,
+                 LocalDate dateEnd,
+                 String note,
+                 Long hallId,
+                 String hallName,
+                 String location,
+                 String size,
+                 int capacity,
+                 Boolean status) {
+        this.id = id;
+        this.eventName = eventName;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+
+        Hall hall= new Hall(hallId,hallName,location,size,capacity,status);
+        Reservation reservation = new Reservation(rId,title,purpose,dateStart,dateEnd,note,hall);
         this.reservation = reservation;
     }
 }

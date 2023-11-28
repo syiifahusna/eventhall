@@ -28,9 +28,6 @@ public class ReservationService {
 
     public String  attemptReservation(Reservation reservationRequest, User userRequest, Long hallId) {
 
-        //validation
-
-
         //convert
         Hall hall = hallService.getHallById(hallId);
         User user = userService.getUserById(userRequest.getId());

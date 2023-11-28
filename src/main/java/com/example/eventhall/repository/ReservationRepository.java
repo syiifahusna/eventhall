@@ -20,14 +20,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "WHERE r.user.id = ?1")
     List<Reservation> findByReservationUserIdExceptUserAndHallManager(Long userId);
 
-//    @Query("SELECT " +
-//            "new com.example.eventhall.entity.Reservation" +
-//            "(r.id, r.title, r.purpose, r.dateStart, r.dateEnd, r.note, " +
-//            "r.hall.id, r.hall.hallName, r.hall.location, r.hall.size, " +
-//            "r.hall.manager.id, r.hall.manager.name) " +
-//            "FROM"+
-//            "Reservation r " +
-//            "WHERE r.id = ?1")
     @Query("SELECT " +
             "new com.example.eventhall.entity.Reservation" +
             "(r.id, r.title, r.purpose, r.dateStart, r.dateEnd, r.note, " +
@@ -36,7 +28,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "FROM " +
             "Reservation r " +
             "WHERE r.id = ?1 AND r.user.id = ?2")
-    Reservation findReservationByIdExceptUser(Long rid, Long userId);
+    Reservation findReservationByIdExceptUser(Long rId, Long userId);
 
 
 }

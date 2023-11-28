@@ -54,6 +54,16 @@ public class Reservation {
         this.user = user;
     }
 
+    public Reservation(Long id, String title, String purpose, LocalDate dateStart, LocalDate dateEnd, String note, Hall hall) {
+        this.id = id;
+        this.title = title;
+        this.purpose = purpose;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.note = note;
+        this.hall = hall;
+    }
+
     public Reservation(String title, String purpose, LocalDate dateStart, LocalDate dateEnd, String note) {
         this.title = title;
         this.purpose = purpose;
@@ -111,7 +121,5 @@ public class Reservation {
         hall.setManager(admin);
 
         this.hall = hall;
-
-
     }
 }

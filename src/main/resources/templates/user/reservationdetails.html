@@ -19,7 +19,7 @@
       <div class="col-4 pt-1">
       </div>
       <div class="col-4 text-center">
-        <a class="blog-header-logo text-body-emphasis text-decoration-none" th:href="@{/home}"><h3>Event Hall Management System</h3></a>
+        <a class="blog-header-logo text-body-emphasis text-decoration-none" th:href="@{/u/home}"><h3>Event Hall Management System</h3></a>
       </div>
       <div class="col-4 d-flex justify-content-end align-items-center">
         <form method="post" th:action="@{/logout}">
@@ -122,7 +122,7 @@
             <td th:text="${event.eventName}"></td>
             <td th:text="${event.startDate}"></td>
             <td th:text="${event.endDate}"></td>
-            <td><a class="btn btn-primary rounded-pill px-3 py-0">View Event</a></td>
+            <td><a th:href="@{/u/event/__${event.id}__}" class="btn btn-primary rounded-pill px-3 py-0">View Event</a></td>
           </tr>
           </tbody>
         </table>
@@ -131,13 +131,7 @@
         <p>No Events in this reservation</p>
       </div>
     </div>
-
-
   </div>
-
-
-
-
 </main>
 <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
   <p>Template built by Bootstrap</a></p>
