@@ -105,10 +105,10 @@
                 Contact hall manager for more Info
             </h4>
             <div class="row d-flex justify-content-center">
-                <div class="col-lg-4">
+                <div th:if="${hall.managers}" th:each="manager : ${hall.managers}" class="col-lg-4">
                     <img class="bd-placeholder-img rounded-circle" width="140" height="140" />
-                    <h2 class="fw-normal" th:text="${hall.manager.name}"></h2>
-                    <p th:text="${hall.manager.email}"></p>
+                    <h2 class="fw-normal" th:text="${manager.name}"></h2>
+                    <p th:text="${manager.email}"></p>
                 </div><!-- /.col-lg-4 -->
             </div>
         </div>

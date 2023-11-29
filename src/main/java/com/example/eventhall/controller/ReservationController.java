@@ -5,7 +5,6 @@ import com.example.eventhall.entity.Hall;
 import com.example.eventhall.entity.Reservation;
 import com.example.eventhall.entity.User;
 import com.example.eventhall.service.EventService;
-import com.example.eventhall.service.HallService;
 import com.example.eventhall.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,10 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Controller
@@ -25,21 +22,19 @@ public class ReservationController {
 
     @Value("${app.user.dir}")
     private String userDir;
-    private final HallService hallService;
-    private final EventService eventService;
     private final ReservationService reservationService;
+    private final EventService eventService;
 
     @Autowired
-    public ReservationController(HallService hallService, EventService eventService, ReservationService reservationService) {
-        this.hallService = hallService;
-        this.eventService = eventService;
+    public ReservationController(ReservationService reservationService, EventService eventService) {
         this.reservationService = reservationService;
+        this.eventService = eventService;
     }
 
     @GetMapping("/form/{hallId}")
     public String reservation(@PathVariable("hallId") Long hallId, Model model){
 
-        Hall hall = hallService.getHallDetailsWithoutManagerUsernameAndPassword(hallId);
+        Hall hall = reservationService.getHallDetailsWithoutManagerUsernameAndPassword(hallId);
         if(hall != null){
             model.addAttribute("hall",hall);
         }else{
@@ -69,7 +64,7 @@ public class ReservationController {
         if(message.isEmpty()){
             return "redirect:/u/reservation/success";
         }else{
-            Hall hall = hallService.getHallDetailsWithoutManagerUsernameAndPassword(hallId);
+            Hall hall = reservationService.getHallDetailsWithoutManagerUsernameAndPassword(hallId);
             model.addAttribute("hall",hall);
             model.addAttribute("formmessage",message);
             return userDir + "/reservationform";

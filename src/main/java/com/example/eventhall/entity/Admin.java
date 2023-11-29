@@ -36,4 +36,10 @@ public class Admin {
         this.password = password;
         this.email = email;
     }
+
+    public Admin(Long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
 }

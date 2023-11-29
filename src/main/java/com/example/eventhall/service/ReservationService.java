@@ -1,14 +1,12 @@
 package com.example.eventhall.service;
 
-import com.example.eventhall.entity.Hall;
-import com.example.eventhall.entity.Reservation;
-import com.example.eventhall.entity.User;
+import com.example.eventhall.entity.*;
 import com.example.eventhall.repository.ReservationRepository;
-import com.example.eventhall.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +57,33 @@ public class ReservationService {
 
     public Reservation getReservationDetails(Long rId, Long userId){
         try{
-            Reservation reservation = reservationRepository.findReservationByIdExceptUser(rId,userId);
+            List<Reservation> findReservations = reservationRepository.findReservationByIdExceptUser(rId,userId);
+
+            List<Admin> managers = new ArrayList<>();
+            for (Reservation r: findReservations) {
+                Admin manager = r.getHall().getManagers().get(0);
+                managers.add(manager);
+            }
+
+            Hall hall = new Hall(findReservations.get(0).getHall().getId(),
+                    findReservations.get(0).getHall().getHallName(),
+                    findReservations.get(0).getHall().getLocation(),
+                    findReservations.get(0).getHall().getSize(),
+                    findReservations.get(0).getHall().getCapasity(),
+                    findReservations.get(0).getHall().getStatus(),
+                    managers);
+
+            User user = null;
+
+            Reservation reservation = new Reservation(findReservations.get(0).getId(),
+                    findReservations.get(0).getTitle(),
+                    findReservations.get(0).getPurpose(),
+                    findReservations.get(0).getDateStart(),
+                    findReservations.get(0).getDateEnd(),
+                    findReservations.get(0).getNote(),
+                    hall,
+                    user);
+
             if(reservation != null){
                 return reservation;
             }else{
@@ -83,5 +107,10 @@ public class ReservationService {
             throw e;
         }
     }
+
+    public Hall getHallDetailsWithoutManagerUsernameAndPassword(Long hallId){
+        return hallService.getHallDetailsWithoutManagerUsernameAndPassword(hallId);
+    }
+
 
 }

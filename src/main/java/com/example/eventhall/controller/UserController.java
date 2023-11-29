@@ -37,6 +37,7 @@ public class UserController {
     @GetMapping("/hall")
     public String hall(Model model){
         List<Hall> halls = hallService.getHallsWithoutManager();
+
         if(!halls.isEmpty()){
             model.addAttribute("halls",halls);
         }else{

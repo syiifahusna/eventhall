@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,17 +30,18 @@ public class Hall {
     @Column(columnDefinition = "BOOLEAN")
     private Boolean status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="manager_id")
-    private Admin manager;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "hallsmanagers",joinColumns = @JoinColumn(name = "hall_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "manager_id",referencedColumnName = "id"))
+    private List<Admin> managers;
 
-    public Hall(String hallName, String location, String size, int capasity, Boolean status, Admin manager) {
+    public Hall(String hallName, String location, String size, int capasity, Boolean status, List<Admin> managers) {
         this.hallName = hallName;
         this.location = location;
         this.size = size;
         this.capasity = capasity;
         this.status = status;
-        this.manager = manager;
+        this.managers = managers;
     }
 
     public Hall(Long id, String hallName, String location, String size, int capasity, Boolean status) {
@@ -51,7 +53,16 @@ public class Hall {
         this.status = status;
     }
 
-    public Hall(Long id, String hallName, String location, String size, int capasity, Boolean status, Long managerId, String managerName, String managerEmail) {
+    public Hall(Long id,
+                String hallName,
+                String location,
+                String size,
+                int capasity,
+                Boolean status,
+                Long managerId,
+                String managerName,
+                String managerEmail) {
+
         this.id = id;
         this.hallName = hallName;
         this.location = location;
@@ -59,11 +70,12 @@ public class Hall {
         this.capasity = capasity;
         this.status = status;
 
-        Admin manager = new Admin();
-        manager.setId(managerId);
-        manager.setName(managerName);
-        manager.setEmail(managerEmail);
-        this.manager = manager;
+        if(managers == null){
+            managers = new ArrayList<>();
+        }
+
+        Admin manager = new Admin(managerId,managerName,managerEmail);
+        this.managers.add(manager);
     }
 
 }

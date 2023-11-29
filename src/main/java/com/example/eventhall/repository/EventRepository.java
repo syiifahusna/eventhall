@@ -15,6 +15,7 @@ public interface EventRepository extends JpaRepository<Event,Long> {
             "FROM Event e WHERE e.reservation.id = ?1")
     List<Event> findEventByReservationId(Long rId);
 
+
     @Query("SELECT new com.example.eventhall.entity.Event" +
             "(e.id," +
             "e.eventName, " +

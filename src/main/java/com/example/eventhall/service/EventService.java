@@ -19,9 +19,7 @@ public class EventService{
     }
 
     public Reservation getHallReservationDetails(Long rId, Long userId) {
-
-        Reservation reservation = reservationService.getReservationDetails(rId,userId);
-        return reservation;
+        return reservationService.getReservationDetails(rId,userId);
     }
 
     public String attemptCreateEvent(Event eventRequest, Long rId) {
@@ -58,6 +56,7 @@ public class EventService{
     public Event getEventDetails(Long eId, Long userId) {
         try{
             Event event= eventRepository.findEventByEventIdExceptUserAndHallManager(eId,userId);
+
             if(event !=null){
                 return event;
             }else{

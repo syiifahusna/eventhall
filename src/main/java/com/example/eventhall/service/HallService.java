@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,12 +32,28 @@ public class HallService {
 
     public Hall getHallDetailsWithoutManagerUsernameAndPassword(Long hallId){
         try{
-            Hall hall = hallRepository.findHallWithoutManagerUsernameAndPassword(hallId);
+            List<Hall> findHalls = hallRepository.findHallWithoutManagerUsernameAndPassword(hallId);
+
+            List<Admin> managers = new ArrayList<>();
+            for (Hall h: findHalls) {
+                Admin manager = h.getManagers().get(0);
+                managers.add(manager);
+            }
+
+            Hall hall = new Hall(findHalls.get(0).getId(),
+                                findHalls.get(0).getHallName(),
+                                findHalls.get(0).getLocation(),
+                                findHalls.get(0).getSize(),
+                                findHalls.get(0).getCapasity(),
+                                findHalls.get(0).getStatus(),
+                                managers);
+
             if(hall != null) {
                 return hall;
             }else{
                 return null;
             }
+
         }catch(EntityNotFoundException e){
             throw e;
         }

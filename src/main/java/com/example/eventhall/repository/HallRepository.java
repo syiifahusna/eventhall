@@ -13,14 +13,16 @@ public interface HallRepository extends JpaRepository<Hall, Long> {
 //    @Query("SELECT h.id, h.hallName, h.location, h.size, h.capasity, h.status FROM Hall h")
 //    List<Object[]> findAllWithoutManager();
 
-    @Query("SELECT new com.example.eventhall.entity.Hall(h.id, h.hallName, h.location, h.size, h.capasity, h.status) FROM Hall h")
+    @Query("SELECT new com.example.eventhall.entity.Hall" +
+            "(h.id, h.hallName, h.location, h.size, h.capasity, h.status) " +
+            "FROM Hall h")
     List<Hall> findAllWithoutManager();
 
     @Query("SELECT new com.example.eventhall.entity.Hall" +
-            "(h.id, h.hallName, h.location, h.size, h.capasity, h.status," +
-            "h.manager.id, h.manager.name, h.manager.email)" +
-            "FROM Hall h " +
+            "(h.id, h.hallName, h.location, h.size, h.capasity, h.status, " +
+            "m.id, m.name, m.email) " +
+            "FROM Hall h JOIN h.managers m " +
             "WHERE h.id = ?1")
-    Hall findHallWithoutManagerUsernameAndPassword(Long hallId);
+    List<Hall> findHallWithoutManagerUsernameAndPassword(Long hallId);
 
 }

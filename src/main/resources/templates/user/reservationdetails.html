@@ -90,12 +90,13 @@
         <td th:text="${reservation.hall.capasity}"></td>
       </tr>
       <tr>
-        <th>Manager Name</th>
-        <td th:text="${reservation.hall.manager.name}"></td>
-      </tr>
-      <tr>
-        <th>Manager Email</th>
-        <td th:text="${reservation.hall.manager.email}"></td>
+        <th>Managers</th>
+        <td th:if="${reservation.hall.managers}">
+          <ul th:each="manager : ${reservation.hall.managers}">
+            <li th:text="${manager.name}"></li>
+            <li th:text="${manager.email}"></li>
+          </ul>
+        </td>
       </tr>
       </tbody>
     </table>

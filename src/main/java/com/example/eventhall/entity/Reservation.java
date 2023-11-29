@@ -44,6 +44,14 @@ public class Reservation {
     @JoinColumn(name="user_id")
     private User user;
 
+    public Reservation(String title, String purpose, LocalDate dateStart, LocalDate dateEnd, String note) {
+        this.title = title;
+        this.purpose = purpose;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.note = note;
+    }
+
     public Reservation(String title, String purpose, LocalDate dateStart, LocalDate dateEnd, String note, Hall hall, User user) {
         this.title = title;
         this.purpose = purpose;
@@ -62,14 +70,6 @@ public class Reservation {
         this.dateEnd = dateEnd;
         this.note = note;
         this.hall = hall;
-    }
-
-    public Reservation(String title, String purpose, LocalDate dateStart, LocalDate dateEnd, String note) {
-        this.title = title;
-        this.purpose = purpose;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-        this.note = note;
     }
 
     public Reservation(Long id, String title, String purpose, LocalDate dateStart, LocalDate dateEnd, String note, Long hallId, String hallName) {
@@ -94,12 +94,14 @@ public class Reservation {
                        String note,
                        Long hallId,
                        String hallName,
-                       String hallLocation,
-                       String hallSize,
-                       Integer hallCapasity,
+                       String location,
+                       String size,
+                       Integer capasity,
+                       Boolean status,
                        Long managerId,
                        String managerName,
                        String managerEmail) {
+
         this.id = id;
         this.title = title;
         this.purpose = purpose;
@@ -107,19 +109,7 @@ public class Reservation {
         this.dateEnd = dateEnd;
         this.note = note;
 
-        Admin admin = new Admin();
-        admin.setId(managerId);
-        admin.setName(managerName);
-        admin.setEmail(managerEmail);
+        this.hall = new Hall(hallId,hallName,location,size,capasity,status, managerId, managerName,managerEmail);
 
-        Hall hall = new Hall();
-        hall.setId(hallId);
-        hall.setHallName(hallName);
-        hall.setLocation(hallLocation);
-        hall.setSize(hallSize);
-        hall.setCapasity(hallCapasity);
-        hall.setManager(admin);
-
-        this.hall = hall;
     }
 }

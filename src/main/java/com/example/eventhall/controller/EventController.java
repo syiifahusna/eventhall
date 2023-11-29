@@ -30,8 +30,6 @@ public class EventController {
         User userRequest = (User) authentication.getPrincipal();
         Reservation reservation = eventService.getHallReservationDetails(rId,userRequest.getId());
 
-        //check date match the reservation, else display message
-
         if(reservation != null){
             model.addAttribute("reservation",reservation);
         }else{
@@ -80,7 +78,7 @@ public class EventController {
         if(event != null){
             model.addAttribute("event",event);
         }else{
-            model.addAttribute("message","event does not exist");
+            model.addAttribute("message","Event does not exist");
         }
 
         return userDir + "/eventdetails";
