@@ -123,7 +123,10 @@
             <td th:text="${event.eventName}"></td>
             <td th:text="${event.startDate}"></td>
             <td th:text="${event.endDate}"></td>
-            <td><a th:href="@{/u/event/__${event.id}__}" class="btn btn-primary rounded-pill px-3 py-0">View Event</a></td>
+            <td>
+              <a th:href="@{/u/event/__${event.id}__}" class="btn btn-primary rounded-pill px-3 py-0">Details</a>
+              <a th:href="@{/u/event/edit/__${event.id}__}" class="btn btn-primary rounded-pill px-3 py-0">Edit</a>
+            </td>
           </tr>
           </tbody>
         </table>

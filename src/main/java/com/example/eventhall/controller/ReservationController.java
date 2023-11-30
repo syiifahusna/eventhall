@@ -105,4 +105,20 @@ public class ReservationController {
         return userDir + "/reservationdetails";
     }
 
+    @GetMapping("/edit/{rId}")
+    public String editReservation(@PathVariable("rId") Long rId,Authentication authentication,Model model){
+
+        User userRequest = (User) authentication.getPrincipal();
+        Reservation reservation = reservationService.getReservationDetails(rId, userRequest.getId());
+        if(reservation != null){
+            model.addAttribute("reservation",reservation);
+        }else{
+            model.addAttribute("message","reservation does not exist");
+        }
+
+        return userDir + "/editreservation";
+    }
+
+
+
 }

@@ -84,4 +84,17 @@ public class EventController {
         return userDir + "/eventdetails";
     }
 
+    @GetMapping("/edit/{eId}")
+    public String editEvent(@PathVariable("eId") Long eId,Authentication authentication, Model model){
+        User userRequest = (User) authentication.getPrincipal();
+        Event event = eventService.getEventDetails(eId, userRequest.getId());
+
+       if(event != null){
+            model.addAttribute("event",event);
+        }else{
+            model.addAttribute("message","Event does not exist");
+        }
+        return userDir + "/editevent";
+    }
+
 }

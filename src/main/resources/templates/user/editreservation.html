@@ -40,40 +40,48 @@
 </div>
 <main class="container">
     <h2 class="pt-2 text-center">
-        Reservations
+        Edit This Reservation
     </h2>
     <hr class="my-5">
     <div th:if="${message}" class="alert alert-primary" role="alert">
         <p th:text="${message}"></p>
     </div>
-    <div th:if="${reservations}" class="table-responsive small">
-        <table class="table table-striped table-sm">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Hall Name</th>
-                <th scope="col">Date Reservation</th>
-                <th scope="col">Date End</th>
-                <th scope="col">Options</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="reservation : ${reservations}">
-                <td th:text="${reservation.id}"></td>
-                <td th:text="${reservation.title}"></td>
-                <td th:text="${reservation.hall.hallName}"></td>
-                <td th:text="${reservation.dateStart}"></td>
-                <td th:text="${reservation.dateEnd}"></td>
-                <td>
-                    <a th:href="@{/u/reservation/__${reservation.id}__}" class="btn btn-primary rounded-pill px-3 py-0">Details</a>
-                    <a th:href="@{/u/reservation/edit/__${reservation.id}__}" class="btn btn-primary rounded-pill px-3 py-0">Edit</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
 
+    <div class="col-md-10 mx-auto col-lg-6 py-5">
+        <div th:if="${formmessage}" class="alert alert-primary" role="alert">
+            <p th:text="${formmessage}"></p>
+        </div>
+        <div class="row g-5" th:if="${reservation}">
+            <div class="col-md-7 col-lg-12">
+                <form class="needs-validation" th:action="@{/u/reservation/update/__${reservation.id}__}" method="post">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" name="title" class="form-control" id="title" th:value="${reservation.title}" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="purpose" class="form-label">Purpose</label>
+                            <input type="text" name="purpose" class="form-control" id="purpose" th:value="${reservation.purpose}" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="note" class="form-label">Note</label>
+                            <textarea name="note" class="form-control" id="note" th:text="${reservation.note}"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label for="dateStart" class="form-label">Reservation Date</label>
+                            <input type="date" name="dateStart" class="form-control" id="dateStart"  th:value="${reservation.dateStart}" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="dateEnd" class="form-label">Until</label>
+                            <input type="date" name="dateEnd" class="form-control" id="dateEnd"  th:value="${reservation.dateEnd}" required>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Update Reservation</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </main>
 <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
     <p>Template built by Bootstrap</a></p>

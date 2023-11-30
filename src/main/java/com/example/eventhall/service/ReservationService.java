@@ -59,6 +59,10 @@ public class ReservationService {
         try{
             List<Reservation> findReservations = reservationRepository.findReservationByIdExceptUser(rId,userId);
 
+            if(findReservations.isEmpty()){
+                return null;
+            }
+
             List<Admin> managers = new ArrayList<>();
             for (Reservation r: findReservations) {
                 Admin manager = r.getHall().getManagers().get(0);
@@ -89,6 +93,9 @@ public class ReservationService {
             }else{
                 return null;
             }
+
+
+
         }catch (Exception e){
             throw new RuntimeException("Failed to fetch reservation entity", e);
         }
