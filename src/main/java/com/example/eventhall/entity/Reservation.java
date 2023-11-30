@@ -112,4 +112,13 @@ public class Reservation {
         this.hall = new Hall(hallId,hallName,location,size,capasity,status, managerId, managerName,managerEmail);
 
     }
+
+    public Reservation(Long id, String title, String purpose, LocalDate dateStart, LocalDate dateEnd, String note) {
+        this.id = id;
+        this.title = title;
+        this.purpose = purpose;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.note = note;
+    }
 }

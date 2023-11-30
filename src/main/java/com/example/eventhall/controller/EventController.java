@@ -43,7 +43,7 @@ public class EventController {
                                      @RequestParam("description") String description,
                                      @RequestParam("dateStart") String dateStart,
                                      @RequestParam("dateEnd") String dateEnd,
-                                     @PathVariable Long rId,
+                                     @PathVariable("rId") Long rId,
                                      Authentication authentication,
                                      RedirectAttributes redirectAttributes,
                                      Model model){
@@ -94,7 +94,34 @@ public class EventController {
         }else{
             model.addAttribute("message","Event does not exist");
         }
-        return userDir + "/editevent";
+        return userDir + "/eventedit";
+    }
+
+    @PostMapping("/update/{eId}")
+    public String updateEvent(@RequestParam("eventName") String eventName,
+                              @RequestParam("description") String description,
+                              @RequestParam("dateStart") String dateStart,
+                              @RequestParam("dateEnd") String dateEnd,
+                              @PathVariable("eId") Long eId,
+                              Authentication authentication,
+                              RedirectAttributes redirectAttributes){
+
+        LocalDate startDate = LocalDate.parse(dateStart);
+        LocalDate endDate = LocalDate.parse(dateEnd);
+
+        User userRequest = (User) authentication.getPrincipal();
+        Event eventRequest = new Event(eId,eventName,description,startDate,endDate);
+
+        Boolean isUpdated = eventService.updateEvent(eventRequest,userRequest);
+
+        if(isUpdated){
+            redirectAttributes.addFlashAttribute("formmessage","Event has been updated");
+        }else{
+            redirectAttributes.addFlashAttribute("formmessage","Update failed");
+        }
+
+        return "redirect:/u/reservation/edit/" + eId;
+
     }
 
 }

@@ -85,4 +85,12 @@ public class Event {
         Reservation reservation = new Reservation(rId,title,purpose,dateStart,dateEnd,note,hall);
         this.reservation = reservation;
     }
+
+    public Event(Long id, String eventName, String description, LocalDate startDate, LocalDate endDate) {
+        this.id = id;
+        this.eventName = eventName;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 }

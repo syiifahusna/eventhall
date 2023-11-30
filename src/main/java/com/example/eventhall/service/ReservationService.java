@@ -5,6 +5,7 @@ import com.example.eventhall.repository.ReservationRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,6 +118,37 @@ public class ReservationService {
 
     public Hall getHallDetailsWithoutManagerUsernameAndPassword(Long hallId){
         return hallService.getHallDetailsWithoutManagerUsernameAndPassword(hallId);
+    }
+
+    @Transactional
+    public Boolean updateReservation(Reservation reservationRequest,User userRequest){
+
+        try {
+            Optional<Reservation> findReservation = reservationRepository.findById(reservationRequest.getId());
+            if(findReservation.isPresent()){
+                Reservation reservation = findReservation.get();
+                if(!reservation.getUser().equals(userRequest)){
+                    return false;
+                }
+
+                reservation.setTitle(reservationRequest.getTitle());
+                reservation.setPurpose(reservationRequest.getPurpose());
+                reservation.setDateStart(reservationRequest.getDateStart());
+                reservation.setDateEnd(reservationRequest.getDateEnd());
+                reservation.setNote(reservationRequest.getNote());
+
+                Reservation reservationSave = reservationRepository.save(reservation);
+                if(reservationSave != null){
+                    return true;
+                }
+                return false;
+
+            }else{
+                return false;
+            }
+        }catch(EntityNotFoundException e){
+            throw e;
+        }
     }
 
 

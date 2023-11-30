@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -116,7 +117,34 @@ public class ReservationController {
             model.addAttribute("message","reservation does not exist");
         }
 
-        return userDir + "/editreservation";
+        return userDir + "/reservationedit";
+    }
+
+    @PostMapping("/update/{rId}")
+    public String updateReservation(@RequestParam("title") String title,
+                                    @RequestParam("purpose") String purpose,
+                                    @RequestParam("dateStart") String dateStart,
+                                    @RequestParam("dateEnd") String dateEnd,
+                                    @RequestParam("note") String note,
+                                    @PathVariable("rId") Long rId,
+                                    Authentication authentication,
+                                    RedirectAttributes redirectAttributes){
+
+        LocalDate startDate = LocalDate.parse(dateStart);
+        LocalDate endDate = LocalDate.parse(dateEnd);
+
+        User userRequest = (User) authentication.getPrincipal();
+        Reservation reservationRequest = new Reservation(rId,title,purpose,startDate,endDate,note);
+
+        Boolean isUpdated = reservationService.updateReservation(reservationRequest,userRequest);
+
+        if(isUpdated){
+            redirectAttributes.addFlashAttribute("formmessage","Reservation has been updated");
+        }else{
+            redirectAttributes.addFlashAttribute("formmessage","Update failed");
+        }
+        return "redirect:/u/reservation/edit/" + rId;
+
     }
 
 

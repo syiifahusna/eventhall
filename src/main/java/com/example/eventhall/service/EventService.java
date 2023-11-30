@@ -2,10 +2,14 @@ package com.example.eventhall.service;
 
 import com.example.eventhall.entity.Event;
 import com.example.eventhall.entity.Reservation;
+import com.example.eventhall.entity.User;
 import com.example.eventhall.repository.EventRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EventService{
@@ -66,5 +70,35 @@ public class EventService{
             throw new RuntimeException("Failed to fetch event entity", e);
         }
 
+    }
+
+    @Transactional
+    public Boolean updateEvent(Event eventRequest, User userRequest){
+
+        try {
+            Optional<Event> findEvent = eventRepository.findById(eventRequest.getId());
+            if(findEvent.isPresent()){
+                Event event = findEvent.get();
+                if(!event.getReservation().getUser().equals(userRequest)){
+                    return false;
+                }
+
+                event.setEventName(eventRequest.getEventName());
+                event.setDescription(eventRequest.getDescription());
+                event.setStartDate(eventRequest.getStartDate());
+                event.setEndDate(eventRequest.getEndDate());
+
+                Event eventSave = eventRepository.save(event);
+                if(eventSave != null){
+                    return true;
+                }
+                return false;
+
+            }else{
+                return false;
+            }
+        }catch(EntityNotFoundException e){
+            throw e;
+        }
     }
 }
