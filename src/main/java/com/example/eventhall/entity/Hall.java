@@ -35,6 +35,9 @@ public class Hall {
             inverseJoinColumns = @JoinColumn(name = "manager_id",referencedColumnName = "id"))
     private List<Admin> managers;
 
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "hall")
+    private List<Image> images;
+
     public Hall(String hallName, String location, String size, int capasity, Boolean status, List<Admin> managers) {
         this.hallName = hallName;
         this.location = location;
@@ -78,4 +81,13 @@ public class Hall {
         this.managers.add(manager);
     }
 
+    public Hall(Long id, String hallName, String location, String size, int capasity, Boolean status, List<Admin> managers) {
+        this.id = id;
+        this.hallName = hallName;
+        this.location = location;
+        this.size = size;
+        this.capasity = capasity;
+        this.status = status;
+        this.managers = managers;
+    }
 }

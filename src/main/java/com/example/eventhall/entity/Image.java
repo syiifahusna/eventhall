@@ -23,8 +23,6 @@ public class Image {
     private String imgName;
     private String imgPath;
 
-    public Image(String imgName, String imgPath) {
-        this.imgName = imgName;
-        this.imgPath = imgPath;
-    }
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Hall hall;
 }
